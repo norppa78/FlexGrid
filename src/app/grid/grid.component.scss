@@ -1,0 +1,155 @@
+// FLEX START
+@mixin s-flex-container($flex-flow: row, $justify-content: flex-start, $align-items: flex-start) {
+    display: flex;
+    flex-flow: $flex-flow;
+    justify-content: $justify-content;
+    align-items: $align-items;
+  }
+  
+  @mixin s-flex-item($flex: 0 1 auto, $align-self: auto, $justify-self: auto) {
+    flex: $flex;
+    align-self: $align-self;
+    justify-self: $justify-self;
+  }
+
+// FLEX END
+
+
+// GRID START
+@mixin s-grid-new-container(
+    $template-columns: repeat(12, 1fr),
+    $grid-template-rows: unset,
+    $max-width: rem(1024px)
+) {
+    display: grid;
+    grid-template-columns: $template-columns;
+    grid-template-rows: $grid-template-rows;
+    max-width: $max-width;
+}
+
+@mixin s-grid-new-column($grid-column-start: 1, $grid-column-end: -1, $span: null) {
+    @if $span {
+        grid-column: span $span;
+    } @else {
+        grid-column-end: $grid-column-end;
+        grid-column-start: $grid-column-start;
+    }
+}
+
+@mixin s-grid-new-row($grid-row-start: 1, $grid-row-end: 1) {
+    grid-row-end: $grid-row-end;
+    grid-row-start: $grid-row-start;
+}
+// GRID END
+
+
+
+
+
+
+
+.main {
+    @include s-flex-container(column wrap, center, center);
+    width: 100vw;
+    height: 100vh;
+    padding: 20px;
+    margin: 0;
+    border: 10px dashed lightblue;
+    box-sizing: border-box;
+
+    > div, ul {
+        @include s-flex-item(1, stretch);
+        padding: 10px;
+    }
+
+    .demo1 {
+        @include s-grid-new-container(1fr 1fr max-content, max-content 1fr max-content, -width);
+        background:rgba($color: red, $alpha: .3);
+        padding: 10px;
+        column-gap: 10px;
+        row-gap: 10px;
+
+        .submit {
+            @include s-grid-new-column(1, 1);
+            @include s-grid-new-row(3, 3);
+        }
+
+        .cancel {
+            @include s-grid-new-column(2, 2);
+            @include s-grid-new-row(3, 3);
+        }
+
+        .close {
+            @include s-grid-new-column(3, 3);
+            @include s-grid-new-row(1, 1);
+        }
+
+        .content {
+            @include s-grid-new-column(1, 3);
+            @include s-grid-new-row(2, 3);
+            @include s-flex-container(row, center, center);
+            background: rgba($color: purple, $alpha: .3)
+        }
+
+    }
+    .demo2 {
+        @include s-grid-new-container(repeat(3, 1fr), -template-rows, -width);
+        list-style: none;
+        background:rgba($color: green, $alpha: .3);
+        grid-auto-flow: dense;
+        grid-auto-rows: max-content;
+
+        > li {
+            @include s-flex-container(row, center, flex-start);
+        }
+
+        .title {
+            font-weight: bold;
+            color: red;
+        }
+
+        .teacher {
+            @include s-grid-new-column(1, 1);
+        }
+
+        .student {
+            @include s-grid-new-column(2, 2);
+        }
+
+        .pupil {
+            @include s-grid-new-column(3, 3);
+        }
+
+    }
+    .demo3 {
+        
+        @include s-flex-item(1, stretch);
+        @include s-grid-new-container(repeat(3, 1fr));
+        list-style: none;
+        background:rgba($color: purple, $alpha: .3);
+        row-gap: 10px;
+        column-gap: 10px;
+        grid-auto-flow: dense;
+
+        > li {
+            border: 1px solid grey;
+        }
+
+        .teacher {
+            @include s-grid-new-column($span: 2);
+        }
+        .student {
+            @include s-grid-new-column($span: 1);
+        }
+        .pupil {
+            @include s-grid-new-column($span: 3);
+        }
+
+
+    }
+
+}
+
+
+
+

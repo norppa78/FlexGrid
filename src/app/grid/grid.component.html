@@ -1,0 +1,19 @@
+<div class="main">
+  <div class="demo1">
+    <button class="submit">submit</button>
+    <button class="cancel">cancel</button>
+    <button class="close">X</button>
+    <div class="content">This is some dialog content...</div>
+  </div>
+  <ul class="demo2">
+    <li class="teacher title">TEACHERS</li>
+    <li class="student title">STUDENTS</li>
+    <li class="pupil title">PUPILS</li>
+    <li *ngFor="let user of users" [ngClass]="user.role">{{ user.role }}</li>
+  </ul>
+  <ul class="demo3">
+    <li *ngFor="let user of users" [ngClass]="user.role">{{ user.role }}</li>
+  </ul>
+</div>
+
+
